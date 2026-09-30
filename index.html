@@ -4,34 +4,121 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SHIORI 20th BIRTHDAY</title>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 30px 16px 60px;
+      background: #fffafc;
+      color: #222;
+    }
+
+    .question {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .number {
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #777;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    img {
+      width: 100%;
+      margin: 8px 0;
+      border-radius: 12px;
+    }
+
+    .puzzle {
+      font-size: 28px;
+      margin: 30px 0;
+      font-weight: bold;
+    }
+
+    input {
+      width: 80%;
+      max-width: 350px;
+      padding: 14px;
+      font-size: 17px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 15px auto;
+      padding: 13px 35px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 20px;
+      line-height: 1.8;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>SHIORI</h1>
-  <h2>20th BIRTHDAY</h2>
 
-  <p>QUESTION 01 / 20</p>
+  <div class="question">
 
-  <h3>最初の謎</h3>
+    <p class="number">QUESTION 01 / 20</p>
 
-  <input id="answer" type="text" placeholder="答えを入力">
+    <h1>最初の謎</h1>
 
-  <button onclick="checkAnswer()">ANSWER</button>
+    <p>3枚の画像をよく見て、答えを導き出せ。</p>
 
-  <p id="result"></p>
+    <img src="IMG_8113.jpeg">
+    <img src="IMG_8114.jpeg">
+    <img src="IMG_8115.jpeg">
+
+    <div class="puzzle">
+      ①②⑤⑧ ＝ ？？？
+    </div>
+
+    <input id="answer" type="text" placeholder="答えを入力">
+
+    <button onclick="checkAnswer()">ANSWER</button>
+
+    <p id="result"></p>
+
+  </div>
 
   <script>
     function checkAnswer() {
-      const answer = document.getElementById("answer").value.trim();
 
-      if (answer === "千葉公園" || answer === "ちばこうえん") {
+      const answer =
+        document.getElementById("answer").value.trim();
+
+      if (
+        answer === "千葉公園" ||
+        answer === "ちばこうえん"
+      ) {
+
         document.getElementById("result").innerHTML =
-          "CLEAR!<br>QUESTION 01 / 20<br><br>千葉公園へ向かえ。";
+          "QUESTION 01 CLEAR!<br><br>千葉公園へ向かえ。";
+
       } else {
+
         document.getElementById("result").textContent =
           "不正解。もう一度考えてみよう。";
+
       }
     }
   </script>
+
 </body>
 </html>
