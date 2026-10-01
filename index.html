@@ -68,6 +68,16 @@
       line-height: 1.8;
       font-weight: bold;
     }
+
+    .next {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .next button {
+      background: #555;
+    }
+
   </style>
 </head>
 
@@ -95,9 +105,14 @@
 
     <p id="result"></p>
 
+    <div id="next" class="next">
+      <button onclick="goNext()">NEXT →</button>
+    </div>
+
   </div>
 
   <script>
+
     function checkAnswer() {
 
       const answer =
@@ -111,13 +126,21 @@
         document.getElementById("result").innerHTML =
           "QUESTION 01 CLEAR!<br><br>千葉公園へ向かえ。";
 
+        document.getElementById("next").style.display = "block";
+
       } else {
 
         document.getElementById("result").textContent =
           "不正解。もう一度考えてみよう。";
 
+        document.getElementById("next").style.display = "none";
       }
     }
+
+    function goNext() {
+      window.location.href = "question02.html";
+    }
+
   </script>
 
 </body>
