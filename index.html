@@ -1,169 +1,161 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHIORI 20th BIRTHDAY</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUESTION 01</title>
 
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 30px 16px 60px;
-      background: #fffafc;
-      color: #222;
-    }
+<style>
+body {
+  margin: 0;
+  background: #111;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
 
-    .question {
-      max-width: 600px;
-      margin: auto;
-    }
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
 
-    .number {
-      font-size: 14px;
-      letter-spacing: 2px;
-      color: #777;
-    }
+.question-number {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
 
-    h1 {
-      margin-bottom: 5px;
-    }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 25px;
+}
 
-    img {
-      width: 100%;
-      margin: 8px 0;
-      border-radius: 12px;
-    }
+.question {
+  font-size: 22px;
+  margin: 30px 0;
+}
 
-    .puzzle {
-      font-size: 28px;
-      margin: 30px 0;
-      font-weight: bold;
-    }
+input {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 18px;
+  box-sizing: border-box;
+}
 
-    input {
-      width: 80%;
-      max-width: 350px;
-      padding: 14px;
-      font-size: 17px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
+button {
+  display: block;
+  margin: 15px auto;
+  padding: 12px 30px;
+  font-size: 16px;
+}
 
-    button {
-      display: block;
-      margin: 15px auto;
-      padding: 13px 35px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      background: #222;
-      color: white;
-    }
+#wrong {
+  color: #ff5555;
+  display: none;
+  margin-top: 15px;
+}
 
-    #result {
-      margin-top: 25px;
-      font-size: 20px;
-      line-height: 1.8;
-      font-weight: bold;
-    }
+#clear {
+  display: none;
+  margin-top: 35px;
+}
 
-    .next {
-      display: none;
-      margin-top: 25px;
-    }
+.clear-title {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
 
-    .next button {
-      background: #555;
-    }
-  </style>
+.clear-message {
+  font-size: 20px;
+  margin-bottom: 35px;
+}
+
+.links a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: underline;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="question">
+<div class="container">
 
-    <p class="number">QUESTION 01 / 20</p>
+<div class="question-number">
+QUESTION 01 / 20
+</div>
 
-    <h1>最初の謎</h1>
+<img src="IMG_8113.jpeg" alt="QUESTION 01">
+<img src="IMG_8114.jpeg" alt="QUESTION 01">
+<img src="IMG_8115.jpeg" alt="QUESTION 01">
 
-    <p>3枚の画像をよく見て、答えを導き出せ。</p>
+<div class="question">
+①②⑤⑧ = ？？？
+</div>
 
-    <img src="IMG_8113.jpeg">
-    <img src="IMG_8114.jpeg">
-    <img src="IMG_8115.jpeg">
+<input type="text" id="answer" placeholder="答えを入力">
 
-    <div class="puzzle">
-      ①②⑤⑧ ＝ ？？？
-    </div>
+<button onclick="checkAnswer()">
+回答する
+</button>
 
-    <input id="answer" type="text" placeholder="答えを入力">
+<div id="wrong">
+不正解！もう一度考えてみよう。
+</div>
 
-    <button onclick="checkAnswer()">ANSWER</button>
+<div id="clear">
 
-    <p id="result"></p>
+<div class="clear-title">
+QUESTION 01 CLEAR!
+</div>
 
-    <div id="next" class="next">
-      <button onclick="goNext()">NEXT →</button>
-    </div>
+<div class="clear-message">
+千葉公園へ向かえ。
+</div>
 
-  </div>
+<div class="links">
+<a href="start.html">PREV</a>
+<a href="question2.html">NEXT</a>
+</div>
 
-  <script>
+</div>
 
-    function showClear() {
+</div>
 
-      document.getElementById("result").innerHTML =
-        "QUESTION 01 CLEAR!<br><br>千葉公園へ向かえ。";
+<script>
+function showClear() {
+  document.getElementById("clear").style.display = "block";
+  document.getElementById("answer").style.display = "none";
+  document.querySelector("button").style.display = "none";
+  document.getElementById("wrong").style.display = "none";
+}
 
-      document.getElementById("next").style.display = "block";
+function checkAnswer() {
+  const answer = document.getElementById("answer").value.trim();
 
-    }
+  if (
+    answer === "千葉公園" ||
+    answer === "ちばこうえん"
+  ) {
+    localStorage.setItem("clear01", "true");
+    showClear();
+  } else {
+    document.getElementById("wrong").style.display = "block";
+  }
+}
 
-    function checkAnswer() {
-
-      const answer =
-        document.getElementById("answer").value.trim();
-
-      if (
-        answer === "千葉公園" ||
-        answer === "ちばこうえん"
-      ) {
-
-        // Q1をクリアしたことを保存
-        localStorage.setItem("clear01", "true");
-
-        showClear();
-
-      } else {
-
-        document.getElementById("result").textContent =
-          "不正解。もう一度考えてみよう。";
-
-        document.getElementById("next").style.display = "none";
-
-      }
-    }
-
-    function goNext() {
-
-      window.location.href = "question02.html";
-
-    }
-
-    // ページを開いたとき、Q1をクリア済みか確認
-    window.onload = function() {
-
-      if (localStorage.getItem("clear01") === "true") {
-
-        showClear();
-
-      }
-
-    };
-
-  </script>
+window.addEventListener("pageshow", function() {
+  if (localStorage.getItem("clear01") === "true") {
+    showClear();
+  }
+});
+</script>
 
 </body>
 </html>
