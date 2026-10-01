@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUESTION 20</title>
+<style>
+body {
+  margin:0;
+  background:#111;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+}
+
+.container {
+  max-width:700px;
+  margin:0 auto;
+  padding:40px 20px;
+}
+
+.question-number {
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:40px;
+}
+
+.question {
+  font-size:24px;
+  line-height:2.2;
+  margin:30px 0 40px;
+  white-space:pre-line;
+}
+
+input {
+  width:80%;
+  max-width:400px;
+  padding:12px;
+  font-size:18px;
+  box-sizing:border-box;
+}
+
+button {
+  display:block;
+  margin:15px auto;
+  padding:12px 30px;
+  font-size:16px;
+}
+
+#wrong {
+  color:#ff5555;
+  display:none;
+  margin-top:15px;
+}
+
+#clear {
+  display:none;
+  margin-top:35px;
+}
+
+.clear-title {
+  font-size:28px;
+  letter-spacing:2px;
+  margin-bottom:20px;
+}
+
+.clear-message {
+  font-size:20px;
+  margin-bottom:35px;
+}
+
+.links a {
+  color:white;
+  margin:0 15px;
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="question-number">QUESTION 20 / 20</div>
+
+<div class="question">
+タテ－たすく=203
+タテ×たすく=804204
+たすく+しおり=1806
+しおり=？？？
+</div>
+
+<input type="text" id="answer" placeholder="答えを入力">
+
+<button onclick="checkAnswer()">回答する</button>
+
+<div id="wrong">不正解！もう一度考えてみよう。</div>
+
+<div id="clear">
+
+<div class="clear-title">QUESTION 20 CLEAR!</div>
+
+<div class="clear-message">正解！</div>
+
+<div class="links">
+<a href="question19.html">PREV</a>
+<a href="clear.html">NEXT</a>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function showClear() {
+  document.getElementById("clear").style.display = "block";
+  document.getElementById("answer").style.display = "none";
+  document.querySelector("button").style.display = "none";
+  document.getElementById("wrong").style.display = "none";
+}
+
+function checkAnswer() {
+  const answer = document.getElementById("answer").value.trim();
+
+  if (answer === "1005") {
+    localStorage.setItem("clear20", "true");
+    showClear();
+  } else {
+    document.getElementById("wrong").style.display = "block";
+  }
+}
+
+window.addEventListener("pageshow", function() {
+  if (localStorage.getItem("clear20") === "true") {
+    showClear();
+  }
+});
+</script>
+
+</body>
+</html>
