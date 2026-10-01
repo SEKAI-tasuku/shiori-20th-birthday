@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QUESTION 04</title>
+
+<style>
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.question-number {
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+.puzzle {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto 30px;
+    border-radius: 10px;
+}
+
+input {
+    width: 80%;
+    max-width: 400px;
+    padding: 14px;
+    box-sizing: border-box;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 30px;
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#clearArea {
+    display: none;
+}
+
+.clear {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+a {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.prev {
+    background: #555;
+    color: white;
+    margin-right: 10px;
+}
+
+.next {
+    background: white;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="question-number">
+        QUESTION 04 / 20
+    </div>
+
+    <img
+        class="puzzle"
+        src="IMG_8228.jpeg"
+        alt=""
+    >
+
+    <div id="questionArea">
+
+        <input
+            id="answer"
+            type="text"
+            placeholder="答えを入力"
+            autocomplete="off"
+        >
+
+        <br>
+
+        <button type="button" onclick="checkAnswer()">
+            回答する
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <div id="clearArea">
+
+        <div class="clear">
+            QUESTION 04 CLEAR!
+        </div>
+
+        <p>正解！</p>
+
+        <a class="prev" href="question03.html">
+            ← PREV
+        </a>
+
+        <a class="next" href="question05.html">
+            NEXT →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function showClear() {
+    document.getElementById("questionArea").style.display = "none";
+    document.getElementById("clearArea").style.display = "block";
+}
+
+function checkAnswer() {
+
+    const answer = document
+        .getElementById("answer")
+        .value
+        .trim();
+
+    const correct =
+        answer === "紅葉" ||
+        answer === "こうよう" ||
+        answer === "もみじ";
+
+    if (correct) {
+
+        localStorage.setItem("clear04", "true");
+
+        showClear();
+
+    } else {
+
+        document.getElementById("result").textContent =
+            "不正解！もう一度考えてみよう。";
+
+    }
+}
+
+window.addEventListener("pageshow", function() {
+
+    if (localStorage.getItem("clear04") === "true") {
+        showClear();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
