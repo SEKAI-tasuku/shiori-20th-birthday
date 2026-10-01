@@ -16,7 +16,7 @@ body {
 
 .container {
     max-width: 700px;
-    margin: 0 auto;
+    margin: auto;
     padding: 30px 20px;
 }
 
@@ -26,23 +26,23 @@ body {
     margin-bottom: 30px;
 }
 
-img {
+.puzzle {
     width: 100%;
     max-width: 600px;
     display: block;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 30px;
     border-radius: 10px;
 }
 
 input {
     width: 80%;
     max-width: 400px;
-    box-sizing: border-box;
     padding: 14px;
+    box-sizing: border-box;
     font-size: 18px;
-    border-radius: 8px;
-    border: none;
     text-align: center;
+    border: none;
+    border-radius: 8px;
 }
 
 button {
@@ -58,33 +58,34 @@ button {
     font-size: 18px;
 }
 
+#clearArea {
+    display: none;
+}
+
 .clear {
     font-size: 30px;
     font-weight: bold;
     margin-top: 30px;
 }
 
-.next {
+a {
     display: inline-block;
     margin-top: 30px;
     padding: 14px 30px;
-    background: white;
-    color: black;
-    text-decoration: none;
     border-radius: 8px;
+    text-decoration: none;
     font-size: 18px;
 }
 
 .prev {
-    display: inline-block;
-    margin-top: 30px;
-    margin-right: 10px;
-    padding: 14px 30px;
     background: #555;
     color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 18px;
+    margin-right: 10px;
+}
+
+.next {
+    background: white;
+    color: black;
 }
 </style>
 </head>
@@ -93,35 +94,48 @@ button {
 
 <div class="container">
 
-<div class="question-number">
-QUESTION 02 / 20
-</div>
+    <div class="question-number">QUESTION 02 / 20</div>
 
-<img src="IMG_8208.jpeg" alt="">
+    <img
+        class="puzzle"
+        src="IMG_8208.jpeg"
+        alt=""
+    >
 
-<div id="questionArea">
+    <div id="questionArea">
 
-<input type="text" id="answer" placeholder="答えを入力">
+        <input
+            id="answer"
+            type="text"
+            placeholder="答えを入力"
+            autocomplete="off"
+        >
 
-<br>
+        <br>
 
-<button type="button" onclick="checkAnswer()">回答する</button>
+        <button type="button" onclick="checkAnswer()">
+            回答する
+        </button>
 
-<div id="result"></div>
+        <div id="result"></div>
 
-</div>
+    </div>
 
-<div id="clearArea" style="display:none;">
+    <div id="clearArea">
 
-<div class="clear">
-QUESTION 02 CLEAR!
-</div>
+        <div class="clear">
+            QUESTION 02 CLEAR!
+        </div>
 
-<a class="prev" href="index.html">← PREV</a>
+        <a class="prev" href="index.html">
+            ← PREV
+        </a>
 
-<a class="next" href="question03.html">NEXT →</a>
+        <a class="next" href="question03.html">
+            NEXT →
+        </a>
 
-</div>
+    </div>
 
 </div>
 
@@ -134,14 +148,18 @@ function showClear() {
 
 function checkAnswer() {
 
-    const answer = document.getElementById("answer").value.trim();
+    const answer = document
+        .getElementById("answer")
+        .value
+        .trim();
 
-    if (
+    const correct =
         answer === "6" ||
         answer === "６" ||
         answer === "6個" ||
-        answer === "６個"
-    ) {
+        answer === "６個";
+
+    if (correct) {
 
         localStorage.setItem("clear02", "true");
 
@@ -151,6 +169,7 @@ function checkAnswer() {
 
         document.getElementById("result").textContent =
             "不正解！もう一度考えてみよう。";
+
     }
 }
 
