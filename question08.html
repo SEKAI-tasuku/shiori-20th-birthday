@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUESTION 08</title>
+
+<style>
+body {
+  margin: 0;
+  background: #111;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.question-number {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 30px;
+}
+
+.question {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+input {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
+button {
+  display: block;
+  margin: 15px auto;
+  padding: 12px 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#wrong {
+  color: #ff5555;
+  display: none;
+  margin-top: 15px;
+}
+
+#clear {
+  display: none;
+}
+
+.clear-title {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.clear-message {
+  font-size: 20px;
+  margin-bottom: 35px;
+}
+
+.links a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div id="questionArea">
+
+    <div class="question-number">
+      QUESTION 08 / 20
+    </div>
+
+    <img src="IMG_8232.jpeg" alt="QUESTION 08">
+
+    <div class="question">
+      ???に入る言葉を答えよ
+    </div>
+
+    <input type="text" id="answer" placeholder="答えを入力">
+
+    <button onclick="checkAnswer()">回答する</button>
+
+    <div id="wrong">
+      不正解！もう一度考えてみよう。
+    </div>
+
+  </div>
+
+  <div id="clear">
+
+    <div class="clear-title">
+      QUESTION 08 CLEAR!
+    </div>
+
+    <div class="clear-message">
+      正解！
+    </div>
+
+    <div class="links">
+      <a href="question07.html">PREV</a>
+      <a href="question09.html">NEXT</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function showClear() {
+  document.getElementById("questionArea").style.display = "none";
+  document.getElementById("clear").style.display = "block";
+}
+
+function checkAnswer() {
+  const answer = document.getElementById("answer").value.trim();
+
+  if (answer === "ケヤキ") {
+    localStorage.setItem("clear08", "true");
+    showClear();
+  } else {
+    document.getElementById("wrong").style.display = "block";
+  }
+}
+
+window.addEventListener("pageshow", function() {
+  if (localStorage.getItem("clear08") === "true") {
+    showClear();
+  }
+});
+</script>
+
+</body>
+</html>
