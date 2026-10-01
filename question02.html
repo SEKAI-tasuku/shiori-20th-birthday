@@ -1,163 +1,168 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHIORI 20th BIRTHDAY</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUESTION 02</title>
 
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 30px 16px 60px;
-      background: #fffafc;
-      color: #222;
-    }
+<style>
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
 
-    .question {
-      max-width: 600px;
-      margin: auto;
-    }
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
 
-    .number {
-      font-size: 14px;
-      letter-spacing: 2px;
-      color: #777;
-    }
+.question-number {
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
 
-    h1 {
-      margin-bottom: 5px;
-    }
+img {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto 30px auto;
+    border-radius: 10px;
+}
 
-    img {
-      width: 100%;
-      margin: 8px 0;
-      border-radius: 12px;
-    }
+input {
+    width: 80%;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+}
 
-    .puzzle {
-      font-size: 24px;
-      margin: 30px 0;
-      font-weight: bold;
-      line-height: 1.6;
-    }
+button {
+    margin-top: 15px;
+    padding: 12px 30px;
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+}
 
-    input {
-      width: 80%;
-      max-width: 350px;
-      padding: 14px;
-      font-size: 17px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}
 
-    button {
-      display: block;
-      margin: 15px auto;
-      padding: 13px 35px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      background: #222;
-      color: white;
-    }
+.clear {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+}
 
-    #result {
-      margin-top: 25px;
-      font-size: 20px;
-      line-height: 1.8;
-      font-weight: bold;
-    }
+.next {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 14px 30px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+}
 
-    .navigation {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 30px;
-    }
-
-    .navigation button {
-      margin: 0;
-      padding: 12px 25px;
-    }
-
-    .next {
-      display: none;
-    }
-  </style>
+.prev {
+    display: inline-block;
+    margin-top: 30px;
+    margin-right: 10px;
+    padding: 14px 30px;
+    background: #555;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="question">
+<div class="container">
 
-    <p class="number">QUESTION 02 / 20</p>
+<div class="question-number">
+QUESTION 02 / 20
+</div>
 
-    <h1>第二の謎</h1>
+<img src="IMG_8208.jpeg" alt="">
 
-    <p>池尻地下道へ向かい、謎を解け。</p>
+<div id="questionArea">
 
-    <img src="IMG_8208.jpeg">
+<input type="text" id="answer" placeholder="答えを入力">
 
-    <div class="puzzle">
-      池尻地下道にある<br>
-      スマホスタンドの数は？
-    </div>
+<br>
 
-    <input id="answer" type="text" placeholder="答えを入力">
+<button type="button" onclick="checkAnswer()">回答する</button>
 
-    <button onclick="checkAnswer()">ANSWER</button>
+<div id="result"></div>
 
-    <p id="result"></p>
+</div>
 
-    <div id="next" class="next">
-      <button onclick="goNext()">NEXT →</button>
-    </div>
+<div id="clearArea" style="display:none;">
 
-    <div class="navigation">
-      <button onclick="goPrev()">← PREV</button>
-    </div>
+<div class="clear">
+QUESTION 02 CLEAR!
+</div>
 
-  </div>
+<a class="prev" href="index.html">← PREV</a>
 
-  <script>
+<a class="next" href="question03.html">NEXT →</a>
 
-    function checkAnswer() {
+</div>
 
-      const answer =
-        document.getElementById("answer").value.trim();
+</div>
 
-      if (
+<script>
+
+function showClear() {
+    document.getElementById("questionArea").style.display = "none";
+    document.getElementById("clearArea").style.display = "block";
+}
+
+function checkAnswer() {
+
+    const answer = document.getElementById("answer").value.trim();
+
+    if (
         answer === "6" ||
         answer === "６" ||
         answer === "6個" ||
         answer === "６個"
-      ) {
+    ) {
 
-        document.getElementById("result").innerHTML =
-          "QUESTION 02 CLEAR!<br><br>正解！";
+        localStorage.setItem("clear02", "true");
 
-        document.getElementById("next").style.display = "block";
+        showClear();
 
-      } else {
+    } else {
 
         document.getElementById("result").textContent =
-          "不正解。もう一度考えてみよう。";
+            "不正解！もう一度考えてみよう。";
+    }
+}
 
-        document.getElementById("next").style.display = "none";
-      }
+window.onload = function() {
+
+    if (localStorage.getItem("clear02") === "true") {
+        showClear();
     }
 
-    function goNext() {
-      window.location.href = "question03.html";
-    }
+};
 
-    function goPrev() {
-      window.location.href = "index.html";
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
