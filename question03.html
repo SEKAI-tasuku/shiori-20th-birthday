@@ -150,10 +150,7 @@ function showClear() {
 
 function checkAnswer() {
 
-    const answer = document
-        .getElementById("answer")
-        .value
-        .trim();
+    const answer = document.getElementById("answer").value.trim();
 
     const correct =
         answer === "オレンジ" ||
@@ -162,7 +159,11 @@ function checkAnswer() {
 
     if (correct) {
 
-        localStorage.setItem("clear03", "true");
+        try {
+            localStorage.setItem("clear03", "true");
+        } catch (e) {
+            console.log("保存できませんでした");
+        }
 
         showClear();
 
@@ -174,13 +175,20 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+function loadClearState() {
 
-    if (localStorage.getItem("clear03") === "true") {
-        showClear();
+    try {
+
+        if (localStorage.getItem("clear03") === "true") {
+            showClear();
+        }
+
+    } catch (e) {
+        console.log("保存状態を読み込めませんでした");
     }
+}
 
-};
+window.addEventListener("pageshow", loadClearState);
 
 </script>
 
