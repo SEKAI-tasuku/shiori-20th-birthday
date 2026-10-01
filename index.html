@@ -77,7 +77,6 @@
     .next button {
       background: #555;
     }
-
   </style>
 </head>
 
@@ -113,6 +112,15 @@
 
   <script>
 
+    function showClear() {
+
+      document.getElementById("result").innerHTML =
+        "QUESTION 01 CLEAR!<br><br>千葉公園へ向かえ。";
+
+      document.getElementById("next").style.display = "block";
+
+    }
+
     function checkAnswer() {
 
       const answer =
@@ -123,10 +131,10 @@
         answer === "ちばこうえん"
       ) {
 
-        document.getElementById("result").innerHTML =
-          "QUESTION 01 CLEAR!<br><br>千葉公園へ向かえ。";
+        // Q1をクリアしたことを保存
+        localStorage.setItem("clear01", "true");
 
-        document.getElementById("next").style.display = "block";
+        showClear();
 
       } else {
 
@@ -134,12 +142,26 @@
           "不正解。もう一度考えてみよう。";
 
         document.getElementById("next").style.display = "none";
+
       }
     }
 
     function goNext() {
+
       window.location.href = "question02.html";
+
     }
+
+    // ページを開いたとき、Q1をクリア済みか確認
+    window.onload = function() {
+
+      if (localStorage.getItem("clear01") === "true") {
+
+        showClear();
+
+      }
+
+    };
 
   </script>
 
