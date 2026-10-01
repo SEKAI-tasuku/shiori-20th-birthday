@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHIORI 20th BIRTHDAY</title>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 30px 16px 60px;
+      background: #fffafc;
+      color: #222;
+    }
+
+    .question {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .number {
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #777;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .puzzle {
+      font-size: 24px;
+      margin: 40px 0;
+      font-weight: bold;
+      line-height: 2;
+    }
+
+    input {
+      width: 80%;
+      max-width: 350px;
+      padding: 14px;
+      font-size: 17px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 15px auto;
+      padding: 13px 35px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 20px;
+      line-height: 1.8;
+      font-weight: bold;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .navigation button {
+      margin: 0;
+      padding: 12px 25px;
+    }
+
+    .next {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="question">
+
+    <p class="number">QUESTION 03 / 20</p>
+
+    <h1>第三の謎</h1>
+
+    <div class="puzzle">
+      名無しの色は「青緑」<br>
+      コーヒーの色は「？？？」<br><br>
+      ？？？に入る色は？
+    </div>
+
+    <input id="answer" type="text" placeholder="答えを入力">
+
+    <button onclick="checkAnswer()">ANSWER</button>
+
+    <p id="result"></p>
+
+    <div id="next" class="next">
+      <button onclick="goNext()">NEXT →</button>
+    </div>
+
+    <div class="navigation">
+      <button onclick="goPrev()">← PREV</button>
+    </div>
+
+  </div>
+
+  <script>
+
+    function checkAnswer() {
+
+      const answer =
+        document.getElementById("answer").value.trim();
+
+      if (
+        answer === "オレンジ" ||
+        answer === "おれんじ" ||
+        answer === "橙"
+      ) {
+
+        document.getElementById("result").innerHTML =
+          "QUESTION 03 CLEAR!<br><br>正解！";
+
+        document.getElementById("next").style.display = "block";
+
+      } else {
+
+        document.getElementById("result").textContent =
+          "不正解。もう一度考えてみよう。";
+
+        document.getElementById("next").style.display = "none";
+      }
+    }
+
+    function goNext() {
+      window.location.href = "question04.html";
+    }
+
+    function goPrev() {
+      window.location.href = "question02.html";
+    }
+
+  </script>
+
+</body>
+</html>
