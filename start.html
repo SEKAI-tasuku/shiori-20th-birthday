@@ -83,6 +83,7 @@ button {
   background: white;
   color: black;
   font-size: 16px;
+  cursor: pointer;
 }
 
 button:active {
@@ -134,6 +135,24 @@ button:active {
   color: #ffd700;
 }
 
+.start-title {
+  font-size: 34px;
+  margin-top: 70px;
+  margin-bottom: 25px;
+}
+
+.start-subtitle {
+  font-size: 18px;
+  line-height: 1.9;
+  margin-bottom: 55px;
+}
+
+.start-button {
+  width: 220px;
+  font-size: 20px;
+  padding: 16px;
+}
+
 @media (max-width: 500px) {
 
   h1 {
@@ -150,6 +169,10 @@ button:active {
 
   .big {
     font-size: 34px;
+  }
+
+  .start-title {
+    font-size: 28px;
   }
 
 }
@@ -195,10 +218,7 @@ function render(html) {
 
 
 /* =====================================================
-   Q4〜Q15の「問題内容」
-   
-   ここでの番号は内部管理用。
-   画面には絶対にこの番号を表示しない。
+   Q4〜Q15
 ===================================================== */
 
 const randomQuestions = {
@@ -377,19 +397,6 @@ const fixedQuestions = {
 
 /* =====================================================
    ランダム順
-
-   例：
-   [8,12,5,15,7,...]
-
-   これは「問題内容」の順番。
-
-   しかし画面表示は、
-
-   position 0 → 第4問
-   position 1 → 第5問
-   position 2 → 第6問
-
-   とする。
 ===================================================== */
 
 function createRandomOrder() {
@@ -426,6 +433,7 @@ function createRandomOrder() {
   );
 
   return order;
+
 }
 
 
@@ -459,6 +467,52 @@ function getRandomOrder() {
   }
 
   return createRandomOrder();
+
+}
+
+
+/* =====================================================
+   スタート画面
+===================================================== */
+
+function showStart() {
+
+  render(`
+
+    <div>
+
+      <div class="start-title">
+        しおり20歳の謎解き
+      </div>
+
+      <div class="start-subtitle">
+        20歳の誕生日を記念して、<br>
+        20個の謎を用意しました。<br><br>
+        すべての謎を解き明かせ！
+      </div>
+
+      <button
+        class="start-button"
+        onclick="beginGame()"
+      >
+        START
+      </button>
+
+    </div>
+
+  `);
+
+}
+
+
+/* =====================================================
+   STARTボタン
+===================================================== */
+
+function beginGame() {
+
+  startGame();
+
 }
 
 
@@ -650,10 +704,6 @@ function checkQ3() {
       "1"
     );
 
-    /*
-      まだランダム順が存在しなければ作る
-    */
-
     if (
       !localStorage.getItem(
         "randomOrder"
@@ -663,11 +713,6 @@ function checkQ3() {
       createRandomOrder();
 
     }
-
-    /*
-      position 0
-      = 必ず画面上の「第4問」
-    */
 
     showRandomQuestion(0);
 
@@ -684,18 +729,6 @@ function checkQ3() {
    Q4〜Q15
 ===================================================== */
 
-
-/*
-  positionとは「画面上の何問目か」
-
-  0 → 第4問
-  1 → 第5問
-  2 → 第6問
-  ...
-  11 → 第15問
-*/
-
-
 function showRandomQuestion(position) {
 
   const order =
@@ -710,25 +743,8 @@ function showRandomQuestion(position) {
 
   }
 
-  /*
-    ここが重要。
-
-    positionから表示番号を決める。
-
-    0 → 4
-    1 → 5
-    2 → 6
-    ...
-    11 → 15
-  */
-
   const displayNumber =
     position + 4;
-
-  /*
-    実際に表示する問題を
-    ランダム順から取得
-  */
 
   const actualQuestionNumber =
     order[position];
@@ -742,10 +758,6 @@ function showRandomQuestion(position) {
 }
 
 
-/* =====================================================
-   Q4〜Q15の画面
-===================================================== */
-
 function showRandomQuestionContent(
   position,
   displayNumber,
@@ -756,11 +768,6 @@ function showRandomQuestionContent(
     randomQuestions[
       actualQuestionNumber
     ];
-
-  /*
-    元問題番号ではなく
-    positionに対応する番号だけを表示
-  */
 
   const clearKey =
     "clear" +
@@ -779,11 +786,6 @@ function showRandomQuestionContent(
     `;
 
   }
-
-
-  /*
-    まだ正解していない場合
-  */
 
   let answerArea = "";
 
@@ -825,15 +827,6 @@ function showRandomQuestionContent(
   }
 
 
-  /*
-    PREV
-
-    第4問ならQ3へ。
-
-    それ以外なら
-    1つ前の「表示番号」へ。
-  */
-
   let prevButton = "";
 
   if (position === 0) {
@@ -858,15 +851,6 @@ function showRandomQuestionContent(
 
   }
 
-
-  /*
-    NEXT
-
-    第15問ならQ16へ。
-
-    それ以外なら
-    1つ後の「表示番号」へ。
-  */
 
   let nextButton = "";
 
@@ -894,11 +878,6 @@ function showRandomQuestionContent(
 
 
   render(`
-
-    <!--
-      ここで使っているdisplayNumberは
-      必ず4〜15になる。
-    -->
 
     <h2>第${displayNumber}問</h2>
 
@@ -965,11 +944,6 @@ function checkRandomAnswer(
 
   }
 
-
-  /*
-    正解した問題を記録
-  */
-
   const clearKey =
     "clear" +
     String(actualQuestionNumber)
@@ -979,21 +953,6 @@ function checkRandomAnswer(
     clearKey,
     "1"
   );
-
-
-  /*
-    同じ画面を再表示。
-
-    すると、
-
-    「正解！」
-
-    と
-
-    「NEXT」
-
-    が表示される。
-  */
 
   showRandomQuestion(position);
 
@@ -1142,14 +1101,12 @@ function showFixedQuestion(number) {
 
   }
 
-
   const clearKey =
     "clear" +
     String(number).padStart(2, "0");
 
   const isCleared =
     localStorage.getItem(clearKey);
-
 
   let answerArea = "";
 
@@ -1241,10 +1198,6 @@ function showFixedQuestion(number) {
 }
 
 
-/* =====================================================
-   Q17〜Q20 回答
-===================================================== */
-
 function checkFixedAnswer(number) {
 
   const input =
@@ -1277,10 +1230,6 @@ function checkFixedAnswer(number) {
     String(number).padStart(2, "0"),
     "1"
   );
-
-  /*
-    正解後はNEXTが出る
-  */
 
   showFixedQuestion(number);
 
@@ -1356,10 +1305,6 @@ function showClear() {
 
 function resetGame() {
 
-  /*
-    全問題のクリア状態を消す
-  */
-
   for (
     let i = 1;
     i <= 20;
@@ -1373,28 +1318,18 @@ function resetGame() {
 
   }
 
-
-  /*
-    今までのランダム順も完全に削除
-  */
-
   localStorage.removeItem(
     "randomOrder"
   );
 
-
-  /*
-    新しいランダム順を作る
-  */
-
   createRandomOrder();
 
-
   /*
-    第1問へ
+    Q1ではなく
+    スタート画面へ戻る
   */
 
-  showQ1();
+  showStart();
 
 }
 
@@ -1420,7 +1355,7 @@ function showWrong() {
 
 
 /* =====================================================
-   再読み込み時の復帰
+   再開処理
 ===================================================== */
 
 function startGame() {
@@ -1472,12 +1407,6 @@ function startGame() {
 
   /*
     Q4〜Q15
-
-    ここでも重要なのは、
-
-    position = 表示番号 - 4
-
-    ということ。
   */
 
   const order =
@@ -1564,10 +1493,19 @@ function startGame() {
 
 
 /* =====================================================
-   開始
+   ここが重要
 ===================================================== */
 
-startGame();
+/*
+  start.htmlを開いた瞬間は
+  必ずスタート画面。
+
+  STARTボタンを押したら
+  beginGame() → startGame()
+  でゲームを開始。
+*/
+
+showStart();
 
 </script>
 
