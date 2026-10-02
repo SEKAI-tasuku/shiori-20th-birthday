@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>しおり20歳の謎解き</title>
+<title>しおりちゃん20歳の謎解き</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
@@ -25,47 +26,85 @@ body {
     sans-serif;
 }
 
+#app {
+  min-height: 100vh;
+}
+
 .container {
   width: min(92%, 700px);
   margin: 0 auto;
-  padding: 45px 0 60px;
-  text-align: center;
+  padding: 35px 0 60px;
 }
 
 .card {
-  background: #fff;
+  background: white;
   border-radius: 24px;
-  padding: 40px 25px;
+  padding: 35px 24px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  text-align: center;
 }
 
 /* =========================
    スタート画面
 ========================= */
 
+.start-screen {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-small {
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.start-to {
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  margin-bottom: 18px;
+}
+
 .start-title {
-  font-size: 30px;
+  font-size: 31px;
   font-weight: bold;
-  margin-bottom: 35px;
   letter-spacing: 0.08em;
+  margin-bottom: 38px;
 }
 
 .start-message {
-  font-size: 19px;
-  line-height: 2.1;
-  margin-bottom: 45px;
+  font-size: 18px;
+  line-height: 2.15;
+  letter-spacing: 0.04em;
+}
+
+.start-message .birthday {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.start-message .last {
+  margin-top: 22px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
 }
 
 .start-button {
+  margin-top: 48px;
   width: 220px;
-  padding: 16px;
+  padding: 16px 20px;
   border: none;
   border-radius: 50px;
   background: #333;
   color: white;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: bold;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.25em;
   cursor: pointer;
 }
 
@@ -78,23 +117,24 @@ body {
 ========================= */
 
 .question-number {
-  font-size: 18px;
-  color: #888;
+  font-size: 17px;
+  color: #999;
+  letter-spacing: 0.1em;
   margin-bottom: 20px;
 }
 
 .question-text {
-  font-size: 22px;
+  font-size: 21px;
   font-weight: bold;
   line-height: 1.8;
   margin: 20px 0 30px;
 }
 
 .question-image {
+  display: block;
   width: 100%;
   max-width: 600px;
   height: auto;
-  display: block;
   margin: 15px auto 25px;
   border-radius: 12px;
 }
@@ -107,13 +147,18 @@ body {
   border-radius: 10px;
   font-size: 18px;
   text-align: center;
+  outline: none;
+}
+
+.answer-input:focus {
+  border-color: #555;
 }
 
 .answer-button,
 .next-button {
   display: block;
   width: 200px;
-  margin: 15px auto 0;
+  margin: 16px auto 0;
   padding: 13px;
   border: none;
   border-radius: 30px;
@@ -125,21 +170,25 @@ body {
 
 .result {
   margin-top: 25px;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: bold;
-}
-
-.correct {
-  color: #333;
 }
 
 .wrong {
   color: #c44;
 }
 
+.correct {
+  color: #333;
+}
+
 /* =========================
    ホテル
 ========================= */
+
+.hotel {
+  padding: 25px 0;
+}
 
 .hotel-title {
   font-size: 30px;
@@ -157,15 +206,15 @@ body {
 ========================= */
 
 .clear-title {
-  font-size: 32px;
+  font-size: 31px;
   font-weight: bold;
   line-height: 1.6;
 }
 
 .clear-message {
+  margin-top: 30px;
   font-size: 18px;
   line-height: 2;
-  margin-top: 30px;
 }
 
 .reset-button {
@@ -180,6 +229,7 @@ body {
   font-size: 16px;
   cursor: pointer;
 }
+
 </style>
 </head>
 
@@ -191,11 +241,11 @@ body {
 
 <script>
 
-/* =====================================================
-   固定問題
-===================================================== */
+/* =========================================================
+   問題データ
+========================================================= */
 
-const fixedQuestions = {
+const questions = {
 
   1: {
     images: [
@@ -204,23 +254,13 @@ const fixedQuestions = {
       "IMG_8115.jpeg"
     ],
     text: "①②⑤⑧ = ？？？",
-    answers: [
-      "千葉公園",
-      "ちばこうえん"
-    ]
+    answers: ["千葉公園", "ちばこうえん"]
   },
 
   2: {
-    images: [
-      "IMG_8208.jpeg"
-    ],
+    images: ["IMG_8208.jpeg"],
     text: "",
-    answers: [
-      "6",
-      "６",
-      "6個",
-      "６個"
-    ]
+    answers: ["6", "６", "6個", "６個"]
   },
 
   3: {
@@ -229,21 +269,85 @@ const fixedQuestions = {
       名無しの色は「青緑」<br><br>
       コーヒーの色は「？？？」
     `,
-    answers: [
-      "オレンジ",
-      "おれんじ",
-      "橙"
-    ]
+    answers: ["オレンジ", "おれんじ", "橙"]
+  },
+
+  4: {
+    images: ["IMG_8228.jpeg"],
+    text: "",
+    answers: ["紅葉", "こうよう", "もみじ"]
+  },
+
+  5: {
+    images: ["IMG_8229.jpeg"],
+    text: "👄は何色？",
+    answers: ["青", "青色"]
+  },
+
+  6: {
+    images: ["IMG_8230.jpeg"],
+    text: "病気の予防は上から何個目？",
+    answers: ["5", "５", "5個目", "５個目"]
+  },
+
+  7: {
+    images: ["IMG_8231.jpeg"],
+    text: "？？？に入る言葉を答えよ",
+    answers: ["ロータス", "ろーたす", "lotus"]
+  },
+
+  8: {
+    images: ["IMG_8232.jpeg"],
+    text: "",
+    answers: ["ケヤキ", "けやき", "keyaki"]
+  },
+
+  9: {
+    images: ["IMG_8233.jpeg"],
+    text: "",
+    answers: ["B", "b"]
+  },
+
+  10: {
+    images: [],
+    text: "鶴と亀が休むのは何曜日？",
+    answers: ["水曜日", "水曜", "水曜定休"]
+  },
+
+  11: {
+    images: ["IMG_8234.jpeg"],
+    text: "この図は何をアップさせるか。漢字3文字で答えよ",
+    answers: ["柔軟性"]
+  },
+
+  12: {
+    images: ["IMG_8235.jpeg"],
+    text: "",
+    answers: ["左", "左目"]
+  },
+
+  13: {
+    images: ["IMG_8236.jpeg"],
+    text: "",
+    answers: ["芍薬", "シャクヤク"]
+  },
+
+  14: {
+    images: [],
+    text: "タイムトンネルでつながっている過去は何時代？",
+    answers: ["縄文時代", "縄文"]
+  },
+
+  15: {
+    images: ["IMG_8237.jpeg"],
+    text: "",
+    answers: ["S", "s"]
   },
 
   16: {
-    images: [
-      "IMG_8238.jpeg"
-    ],
+    images: ["IMG_8238.jpeg"],
     text: "ゴール地点を漢字2文字で答えよ",
-    answers: [
-      "椿森"
-    ]
+    answers: ["椿森"]
   },
 
   17: {
@@ -252,10 +356,7 @@ const fixedQuestions = {
       "IMG_8239.jpeg"
     ],
     text: "同じツッコミを当てよ",
-    answers: [
-      "こいでかいな",
-      "こいでかい"
-    ]
+    answers: ["こいでかいな", "こいでかい"]
   },
 
   18: {
@@ -266,9 +367,7 @@ const fixedQuestions = {
       世界⋯88<br>
       寝坊⋯？？？
     `,
-    answers: [
-      "11"
-    ]
+    answers: ["11"]
   },
 
   19: {
@@ -291,225 +390,95 @@ const fixedQuestions = {
       たすく＋しおり = 1806<br><br>
       しおり = ？？？
     `,
-    answers: [
-      "1005"
-    ]
+    answers: ["1005"]
   }
 
 };
 
 
-/* =====================================================
-   ランダム問題 Q4〜15
-===================================================== */
-
-const randomQuestions = {
-
-  4: {
-    images: [
-      "IMG_8228.jpeg"
-    ],
-    text: "",
-    answers: [
-      "紅葉",
-      "こうよう",
-      "もみじ"
-    ]
-  },
-
-  5: {
-    images: [
-      "IMG_8229.jpeg"
-    ],
-    text: "👄は何色？",
-    answers: [
-      "青",
-      "青色"
-    ]
-  },
-
-  6: {
-    images: [
-      "IMG_8230.jpeg"
-    ],
-    text: "病気の予防は上から何個目？",
-    answers: [
-      "5",
-      "５",
-      "5個目",
-      "５個目"
-    ]
-  },
-
-  7: {
-    images: [
-      "IMG_8231.jpeg"
-    ],
-    text: "？？？に入る言葉を答えよ",
-    answers: [
-      "ロータス",
-      "ろーたす",
-      "lotus"
-    ]
-  },
-
-  8: {
-    images: [
-      "IMG_8232.jpeg"
-    ],
-    text: "",
-    answers: [
-      "ケヤキ",
-      "けやき",
-      "keyaki"
-    ]
-  },
-
-  9: {
-    images: [
-      "IMG_8233.jpeg"
-    ],
-    text: "",
-    answers: [
-      "B",
-      "b"
-    ]
-  },
-
-  10: {
-    images: [],
-    text: "鶴と亀が休むのは何曜日？",
-    answers: [
-      "水曜日",
-      "水曜",
-      "水曜定休"
-    ]
-  },
-
-  11: {
-    images: [
-      "IMG_8234.jpeg"
-    ],
-    text: "この図は何をアップさせるか。漢字3文字で答えよ",
-    answers: [
-      "柔軟性"
-    ]
-  },
-
-  12: {
-    images: [
-      "IMG_8235.jpeg"
-    ],
-    text: "",
-    answers: [
-      "左",
-      "左目"
-    ]
-  },
-
-  13: {
-    images: [
-      "IMG_8236.jpeg"
-    ],
-    text: "",
-    answers: [
-      "芍薬",
-      "シャクヤク"
-    ]
-  },
-
-  14: {
-    images: [],
-    text: "タイムトンネルでつながっている過去は何時代？",
-    answers: [
-      "縄文時代",
-      "縄文"
-    ]
-  },
-
-  15: {
-    images: [
-      "IMG_8237.jpeg"
-    ],
-    text: "",
-    answers: [
-      "S",
-      "s"
-    ]
-  }
-
-};
-
-
-/* =====================================================
-   変数
-===================================================== */
+/* =========================================================
+   状態
+========================================================= */
 
 let randomOrder = [];
 let randomPosition = 0;
 
 
-/* =====================================================
-   画面描画
-===================================================== */
+/* =========================================================
+   画面表示
+========================================================= */
 
-function render(html) {
+function render(content) {
 
   document.getElementById("app").innerHTML = `
     <div class="card">
-      ${html}
+      ${content}
     </div>
   `;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    スタート画面
-===================================================== */
+========================================================= */
 
 function showStart() {
 
   render(`
 
-    <div class="start-title">
-      しおりちゃんへ
+    <div class="start-screen">
+
+      <div class="start-small">
+        HAPPY BIRTHDAY
+      </div>
+
+      <div class="start-to">
+        しおりちゃんへ
+      </div>
+
+      <div class="start-title">
+        20歳の誕生日
+      </div>
+
+      <div class="start-message">
+
+        20個の謎を準備しました！
+
+        <br><br>
+
+        グダグダかもだけど！<br>
+        楽しんでくれたら最高だせ！
+
+        <div class="last">
+          世界！
+        </div>
+
+      </div>
+
+      <button
+        class="start-button"
+        onclick="startFromBeginning()"
+      >
+        START
+      </button>
+
     </div>
-
-    <div class="start-message">
-
-      20歳の誕生日<br>
-      20個の謎を準備しました！<br><br>
-
-      グダグダかもだけど！<br>
-      楽しんでくれたら最高だせ！<br><br>
-
-      世界！
-
-    </div>
-
-    <button
-      class="start-button"
-      onclick="beginGame()"
-    >
-      START
-    </button>
 
   `);
 
 }
 
 
-/* =====================================================
-   STARTボタン
-===================================================== */
+/* =========================================================
+   START
+   ★ 必ずQ1から始める
+========================================================= */
 
-function beginGame() {
+function startFromBeginning() {
 
   /*
-    STARTを押したら必ず最初から。
-
-    以前のクリア状況を全部削除する。
+    全クリア状態を消す
   */
 
   for (let i = 1; i <= 20; i++) {
@@ -522,24 +491,16 @@ function beginGame() {
 
 
   /*
-    ランダム順もリセット。
+    ランダム順も新しくする
   */
 
-  localStorage.removeItem("randomOrder");
-
-  randomOrder = [];
   randomPosition = 0;
-
-
-  /*
-    新しいランダム順を作る。
-  */
 
   createRandomOrder();
 
 
   /*
-    必ずQ1へ。
+    ★ 絶対にQ1
   */
 
   showQuestion(1);
@@ -547,20 +508,17 @@ function beginGame() {
 }
 
 
-/* =====================================================
-   ランダム順を作る
-===================================================== */
+/* =========================================================
+   ランダム順作成
+========================================================= */
 
 function createRandomOrder() {
 
-  randomOrder =
-    Object.keys(randomQuestions)
-      .map(Number);
+  randomOrder = [
+    4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15
+  ];
 
-
-  /*
-    Fisher-Yatesシャッフル
-  */
 
   for (
     let i = randomOrder.length - 1;
@@ -590,14 +548,13 @@ function createRandomOrder() {
 }
 
 
-/* =====================================================
-   通常問題表示
-===================================================== */
+/* =========================================================
+   Q1〜Q3 / Q16〜Q20
+========================================================= */
 
 function showQuestion(number) {
 
-  const q =
-    fixedQuestions[number];
+  const q = questions[number];
 
   let images = "";
 
@@ -635,7 +592,7 @@ function showQuestion(number) {
 
     <button
       class="answer-button"
-      onclick="checkAnswer(${number})"
+      onclick="checkFixedAnswer(${number})"
     >
       回答する
     </button>
@@ -647,11 +604,11 @@ function showQuestion(number) {
 }
 
 
-/* =====================================================
-   通常問題の回答
-===================================================== */
+/* =========================================================
+   固定問題回答
+========================================================= */
 
-function checkAnswer(number) {
+function checkFixedAnswer(number) {
 
   const input =
     document.getElementById("answer");
@@ -660,7 +617,7 @@ function checkAnswer(number) {
     input.value.trim();
 
   const q =
-    fixedQuestions[number];
+    questions[number];
 
   const correct =
     q.answers.some(
@@ -689,10 +646,6 @@ function checkAnswer(number) {
   }
 
 
-  /*
-    正解を保存
-  */
-
   localStorage.setItem(
     "clear" +
     String(number).padStart(2, "0"),
@@ -708,7 +661,7 @@ function checkAnswer(number) {
 
     <button
       class="next-button"
-      onclick="nextFixedQuestion(${number})"
+      onclick="nextFixed(${number})"
     >
       NEXT
     </button>
@@ -718,20 +671,24 @@ function checkAnswer(number) {
 }
 
 
-/* =====================================================
+/* =========================================================
    固定問題NEXT
-===================================================== */
+========================================================= */
 
-function nextFixedQuestion(number) {
+function nextFixed(number) {
 
   if (number === 1) {
+
     showQuestion(2);
     return;
+
   }
 
   if (number === 2) {
+
     showQuestion(3);
     return;
+
   }
 
   if (number === 3) {
@@ -739,57 +696,53 @@ function nextFixedQuestion(number) {
     randomPosition = 0;
 
     showRandomQuestion();
-
     return;
+
   }
 
   if (number === 16) {
 
     showHotel();
-
     return;
+
   }
 
   if (number === 17) {
 
     showQuestion(18);
-
     return;
+
   }
 
   if (number === 18) {
 
     showQuestion(19);
-
     return;
+
   }
 
   if (number === 19) {
 
     showQuestion(20);
-
     return;
+
   }
 
   if (number === 20) {
 
     showClear();
-
     return;
+
   }
 
 }
 
 
-/* =====================================================
-   ランダム問題表示
-===================================================== */
+/* =========================================================
+   ランダム問題
+========================================================= */
 
 function showRandomQuestion() {
-
-  /*
-    保存されているランダム順を使用
-  */
 
   const saved =
     localStorage.getItem("randomOrder");
@@ -807,28 +760,19 @@ function showRandomQuestion() {
   }
 
 
-  /*
-    ランダム問題の内部番号
-  */
-
   const actualNumber =
     randomOrder[randomPosition];
 
-
-  /*
-    表示する番号は必ず4〜15
-  */
 
   const displayedNumber =
     randomPosition + 4;
 
 
   const q =
-    randomQuestions[actualNumber];
+    questions[actualNumber];
 
 
   let images = "";
-
 
   q.images.forEach(src => {
 
@@ -876,9 +820,9 @@ function showRandomQuestion() {
 }
 
 
-/* =====================================================
-   ランダム問題の回答
-===================================================== */
+/* =========================================================
+   ランダム問題回答
+========================================================= */
 
 function checkRandomAnswer() {
 
@@ -894,7 +838,7 @@ function checkRandomAnswer() {
 
 
   const q =
-    randomQuestions[actualNumber];
+    questions[actualNumber];
 
 
   const correct =
@@ -910,9 +854,9 @@ function checkRandomAnswer() {
 
 
   /*
-    ★ 不正解の場合 ★
-
-    NEXTを絶対に出さない。
+    不正解
+    ↓
+    NEXTは絶対に表示しない
   */
 
   if (!correct) {
@@ -931,7 +875,7 @@ function checkRandomAnswer() {
 
 
   /*
-    ★ 正解の場合 ★
+    正解
   */
 
   localStorage.setItem(
@@ -949,7 +893,7 @@ function checkRandomAnswer() {
 
     <button
       class="next-button"
-      onclick="nextRandomQuestion()"
+      onclick="nextRandom()"
     >
       NEXT
     </button>
@@ -959,15 +903,14 @@ function checkRandomAnswer() {
 }
 
 
-/* =====================================================
-   ランダム問題NEXT
-===================================================== */
+/* =========================================================
+   ランダムNEXT
+========================================================= */
 
-function nextRandomQuestion() {
+function nextRandom() {
 
   /*
-    現在の問題が本当に正解済みか確認。
-    これで不正解状態からNEXTを直接実行されても進まない。
+    現在の問題が正解済みか確認。
   */
 
   const actualNumber =
@@ -986,24 +929,25 @@ function nextRandomQuestion() {
   }
 
 
-  /*
-    次のランダム問題へ
-  */
-
   randomPosition++;
 
+
+  /*
+    まだQ4〜Q15が残っている
+  */
 
   if (randomPosition < 12) {
 
     showRandomQuestion();
-
     return;
 
   }
 
 
   /*
-    Q4〜Q15終了
+    ランダム部分終了
+    ↓
+    Q16
   */
 
   showQuestion(16);
@@ -1011,46 +955,50 @@ function nextRandomQuestion() {
 }
 
 
-/* =====================================================
+/* =========================================================
    ホテル
-===================================================== */
+========================================================= */
 
 function showHotel() {
 
   render(`
 
-    <div class="hotel-title">
-      おつかれさま！
+    <div class="hotel">
+
+      <div class="hotel-title">
+        おつかれさま！
+      </div>
+
+      <div class="hotel-text">
+
+        街ブラ謎解きはここまで！<br><br>
+
+        椿森ホテルを予約してあります。<br><br>
+
+        ここからは少し休憩して、<br>
+        楽しい時間とご飯をゆっくり楽しもう！<br><br>
+
+        まだまだ20歳の誕生日は終わりません。
+
+      </div>
+
+      <button
+        class="next-button"
+        onclick="showQuestion(17)"
+      >
+        NEXT
+      </button>
+
     </div>
-
-    <div class="hotel-text">
-
-      街ブラ謎解きはここまで！<br><br>
-
-      椿森ホテルを予約してあります。<br><br>
-
-      ここからは少し休憩して、<br>
-      楽しい時間とご飯をゆっくり楽しもう！<br><br>
-
-      まだまだ20歳の誕生日は終わりません。
-
-    </div>
-
-    <button
-      class="next-button"
-      onclick="showQuestion(17)"
-    >
-      NEXT
-    </button>
 
   `);
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CLEAR
-===================================================== */
+========================================================= */
 
 function showClear() {
 
@@ -1095,15 +1043,11 @@ function showClear() {
 }
 
 
-/* =====================================================
+/* =========================================================
    最初からやり直す
-===================================================== */
+========================================================= */
 
 function resetGame() {
-
-  /*
-    全問題のクリア状態を削除
-  */
 
   for (let i = 1; i <= 20; i++) {
 
@@ -1113,20 +1057,14 @@ function resetGame() {
 
   }
 
-
-  /*
-    ランダム順も削除
-  */
-
   localStorage.removeItem("randomOrder");
-
 
   randomOrder = [];
   randomPosition = 0;
 
 
   /*
-    ★ 必ずスタート画面へ ★
+    ★ Q1ではなくスタート画面
   */
 
   showStart();
@@ -1134,15 +1072,10 @@ function resetGame() {
 }
 
 
-/* =====================================================
-   重要
-=====================================================
-
-   start.htmlを開いたときは、
-   絶対にQ1を表示しない。
-
-   必ずスタート画面から始める。
-===================================================== */
+/* =========================================================
+   超重要
+   start.htmlを開いた瞬間は必ずスタート画面
+========================================================= */
 
 showStart();
 
