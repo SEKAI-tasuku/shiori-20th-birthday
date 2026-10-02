@@ -3,1079 +3,1092 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>しおりちゃん20歳の謎解き</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    background:#fff;
+    color:#222;
+    text-align:center;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #f7f3ea;
-  color: #333;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Hiragino Kaku Gothic ProN",
-    "Yu Gothic",
-    Meiryo,
-    sans-serif;
+.container{
+    max-width:700px;
+    margin:0 auto;
+    padding:30px 20px 60px;
 }
 
-#app {
-  min-height: 100vh;
+.start-screen{
+    min-height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
 
-.container {
-  width: min(92%, 700px);
-  margin: 0 auto;
-  padding: 35px 0 60px;
+.start-small{
+    font-size:20px;
+    margin-bottom:8px;
 }
 
-.card {
-  background: white;
-  border-radius: 24px;
-  padding: 35px 24px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-  text-align: center;
+.start-to{
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
-/* =========================
-   スタート画面
-========================= */
-
-.start-screen {
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.start-title{
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:30px;
 }
 
-.start-small {
-  font-size: 13px;
-  letter-spacing: 0.3em;
-  color: #aaa;
-  margin-bottom: 30px;
+.start-message{
+    font-size:20px;
+    line-height:2;
+    margin-bottom:35px;
 }
 
-.start-to {
-  font-size: 17px;
-  letter-spacing: 0.12em;
-  margin-bottom: 18px;
+.start-button,
+.next-button{
+    display:block;
+    width:220px;
+    margin:20px auto 0;
+    padding:14px;
+    border:none;
+    border-radius:40px;
+    background:#222;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.start-title {
-  font-size: 31px;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  margin-bottom: 38px;
+.question-number{
+    font-size:24px;
+    font-weight:bold;
+    margin:20px 0;
 }
 
-.start-message {
-  font-size: 18px;
-  line-height: 2.15;
-  letter-spacing: 0.04em;
+.question-text{
+    font-size:22px;
+    line-height:1.8;
+    margin:25px 0;
+    white-space:pre-line;
 }
 
-.start-message .birthday {
-  font-size: 24px;
-  font-weight: bold;
+.question-image{
+    max-width:100%;
+    height:auto;
+    display:block;
+    margin:20px auto;
+    border-radius:8px;
 }
 
-.start-message .last {
-  margin-top: 22px;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 0.15em;
+.answer-input{
+    width:80%;
+    max-width:400px;
+    box-sizing:border-box;
+    padding:14px;
+    font-size:20px;
+    border:1px solid #aaa;
+    border-radius:8px;
+    margin:20px auto 10px;
+    text-align:center;
 }
 
-.start-button {
-  margin-top: 48px;
-  width: 220px;
-  padding: 16px 20px;
-  border: none;
-  border-radius: 50px;
-  background: #333;
-  color: white;
-  font-size: 19px;
-  font-weight: bold;
-  letter-spacing: 0.25em;
-  cursor: pointer;
+.answer-button{
+    display:block;
+    width:180px;
+    margin:10px auto;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:#555;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
 }
 
-.start-button:active {
-  transform: scale(0.97);
+.back-button{
+    display:block;
+    width:160px;
+    margin:12px auto 0;
+    padding:11px;
+    border:1px solid #aaa;
+    border-radius:30px;
+    background:white;
+    color:#555;
+    font-size:16px;
+    cursor:pointer;
 }
 
-/* =========================
-   問題
-========================= */
-
-.question-number {
-  font-size: 17px;
-  color: #999;
-  letter-spacing: 0.1em;
-  margin-bottom: 20px;
+.result{
+    margin-top:25px;
+    min-height:40px;
 }
 
-.question-text {
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1.8;
-  margin: 20px 0 30px;
+.wrong{
+    color:#d33;
+    font-size:28px;
+    font-weight:bold;
 }
 
-.question-image {
-  display: block;
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin: 15px auto 25px;
-  border-radius: 12px;
+.correct{
+    color:#16803c;
+    font-size:28px;
+    font-weight:bold;
 }
 
-.answer-input {
-  width: 100%;
-  max-width: 400px;
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 18px;
-  text-align: center;
-  outline: none;
+.hotel{
+    min-height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
 
-.answer-input:focus {
-  border-color: #555;
+.hotel-title{
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:30px;
 }
 
-.answer-button,
-.next-button {
-  display: block;
-  width: 200px;
-  margin: 16px auto 0;
-  padding: 13px;
-  border: none;
-  border-radius: 30px;
-  background: #333;
-  color: white;
-  font-size: 17px;
-  cursor: pointer;
+.hotel-text{
+    font-size:20px;
+    line-height:2;
+    white-space:pre-line;
 }
 
-.result {
-  margin-top: 25px;
-  font-size: 21px;
-  font-weight: bold;
+.clear-title{
+    font-size:42px;
+    font-weight:bold;
+    margin:40px 0 30px;
 }
 
-.wrong {
-  color: #c44;
+.clear-message{
+    font-size:22px;
+    line-height:2;
+    white-space:pre-line;
 }
 
-.correct {
-  color: #333;
+.reset-button{
+    display:block;
+    width:220px;
+    margin:35px auto 0;
+    padding:14px;
+    border:1px solid #aaa;
+    border-radius:40px;
+    background:white;
+    color:#555;
+    font-size:17px;
+    cursor:pointer;
 }
-
-/* =========================
-   ホテル
-========================= */
-
-.hotel {
-  padding: 25px 0;
-}
-
-.hotel-title {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 35px;
-}
-
-.hotel-text {
-  font-size: 18px;
-  line-height: 2.1;
-}
-
-/* =========================
-   CLEAR
-========================= */
-
-.clear-title {
-  font-size: 31px;
-  font-weight: bold;
-  line-height: 1.6;
-}
-
-.clear-message {
-  margin-top: 30px;
-  font-size: 18px;
-  line-height: 2;
-}
-
-.reset-button {
-  display: block;
-  width: 220px;
-  margin: 40px auto 0;
-  padding: 13px;
-  border: 1px solid #aaa;
-  border-radius: 30px;
-  background: white;
-  color: #555;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div id="app"></div>
-</div>
+<div class="container" id="app"></div>
 
 <script>
 
-/* =========================================================
+/* =========================
    問題データ
-========================================================= */
+========================= */
 
 const questions = {
 
-  1: {
-    images: [
-      "IMG_8113.jpeg",
-      "IMG_8114.jpeg",
-      "IMG_8115.jpeg"
-    ],
-    text: "①②⑤⑧ = ？？？",
-    answers: ["千葉公園", "ちばこうえん"]
-  },
+1:{
+    image:["IMG_8113.jpeg","IMG_8114.jpeg","IMG_8115.jpeg"],
+    text:"①②⑤⑧ = ？？？",
+    answers:["千葉公園","ちばこうえん"]
+},
 
-  2: {
-    images: ["IMG_8208.jpeg"],
-    text: "",
-    answers: ["6", "６", "6個", "６個"]
-  },
+2:{
+    image:["IMG_8208.jpeg"],
+    text:"",
+    answers:["6","６","6個","６個"]
+},
 
-  3: {
-    images: [],
-    text: `
-      名無しの色は「青緑」<br><br>
-      コーヒーの色は「？？？」
-    `,
-    answers: ["オレンジ", "おれんじ", "橙"]
-  },
+3:{
+    image:[],
+    text:"名無しの色は「青緑」\n\nコーヒーの色は「？？？」",
+    answers:["オレンジ","おれんじ","橙"]
+},
 
-  4: {
-    images: ["IMG_8228.jpeg"],
-    text: "",
-    answers: ["紅葉", "こうよう", "もみじ"]
-  },
+4:{
+    image:["IMG_8228.jpeg"],
+    text:"",
+    answers:["紅葉","こうよう","もみじ"]
+},
 
-  5: {
-    images: ["IMG_8229.jpeg"],
-    text: "👄は何色？",
-    answers: ["青", "青色"]
-  },
+5:{
+    image:["IMG_8229.jpeg"],
+    text:"👄は何色？",
+    answers:["青","青色"]
+},
 
-  6: {
-    images: ["IMG_8230.jpeg"],
-    text: "病気の予防は上から何個目？",
-    answers: ["5", "５", "5個目", "５個目"]
-  },
+6:{
+    image:["IMG_8230.jpeg"],
+    text:"病気の予防は上から何個目？",
+    answers:["5","５","5個目","５個目"]
+},
 
-  7: {
-    images: ["IMG_8231.jpeg"],
-    text: "？？？に入る言葉を答えよ",
-    answers: ["ロータス", "ろーたす", "lotus"]
-  },
+7:{
+    image:["IMG_8231.jpeg"],
+    text:"？？？に入る言葉を答えよ",
+    answers:["ロータス","ろーたす","lotus"]
+},
 
-  8: {
-    images: ["IMG_8232.jpeg"],
-    text: "",
-    answers: ["ケヤキ", "けやき", "keyaki"]
-  },
+8:{
+    image:["IMG_8232.jpeg"],
+    text:"",
+    answers:["ケヤキ","けやき","keyaki"]
+},
 
-  9: {
-    images: ["IMG_8233.jpeg"],
-    text: "",
-    answers: ["B", "b"]
-  },
+9:{
+    image:["IMG_8233.jpeg"],
+    text:"",
+    answers:["B","b"]
+},
 
-  10: {
-    images: [],
-    text: "鶴と亀が休むのは何曜日？",
-    answers: ["水曜日", "水曜", "水曜定休"]
-  },
+10:{
+    image:[],
+    text:"鶴と亀が休むのは何曜日？",
+    answers:["水曜日","水曜","水曜定休"]
+},
 
-  11: {
-    images: ["IMG_8234.jpeg"],
-    text: "この図は何をアップさせるか。漢字3文字で答えよ",
-    answers: ["柔軟性"]
-  },
+11:{
+    image:["IMG_8234.jpeg"],
+    text:"この図は何をアップさせるか。\n漢字3文字で答えよ",
+    answers:["柔軟性"]
+},
 
-  12: {
-    images: ["IMG_8235.jpeg"],
-    text: "",
-    answers: ["左", "左目"]
-  },
+12:{
+    image:["IMG_8235.jpeg"],
+    text:"",
+    answers:["左","左目"]
+},
 
-  13: {
-    images: ["IMG_8236.jpeg"],
-    text: "",
-    answers: ["芍薬", "シャクヤク"]
-  },
+13:{
+    image:["IMG_8236.jpeg"],
+    text:"",
+    answers:["芍薬","シャクヤク"]
+},
 
-  14: {
-    images: [],
-    text: "タイムトンネルでつながっている過去は何時代？",
-    answers: ["縄文時代", "縄文"]
-  },
+14:{
+    image:[],
+    text:"タイムトンネルでつながっている過去は何時代？",
+    answers:["縄文時代","縄文"]
+},
 
-  15: {
-    images: ["IMG_8237.jpeg"],
-    text: "",
-    answers: ["S", "s"]
-  },
+15:{
+    image:["IMG_8237.jpeg"],
+    text:"",
+    answers:["S","s"]
+},
 
-  16: {
-    images: ["IMG_8238.jpeg"],
-    text: "ゴール地点を漢字2文字で答えよ",
-    answers: ["椿森"]
-  },
+16:{
+    image:["IMG_8238.jpeg"],
+    text:"ゴール地点を漢字2文字で答えよ",
+    answers:["椿森"]
+},
 
-  17: {
-    images: [
-      "IMG_8240.jpeg",
-      "IMG_8239.jpeg"
-    ],
-    text: "同じツッコミを当てよ",
-    answers: ["こいでかいな", "こいでかい"]
-  },
+17:{
+    image:["IMG_8240.jpeg","IMG_8239.jpeg"],
+    text:"同じツッコミを当てよ",
+    answers:["こいでかいな","こいでかい"]
+},
 
-  18: {
-    images: [],
-    text: `
-      うける⋯18<br>
-      西千葉⋯98<br>
-      世界⋯88<br>
-      寝坊⋯？？？
-    `,
-    answers: ["11"]
-  },
+18:{
+    image:[],
+    text:"うける⋯18\n西千葉⋯98\n世界⋯88\n寝坊⋯？？？",
+    answers:["11"]
+},
 
-  19: {
-    images: [],
-    text: `
-      にほかをうの、どんにか<br><br>
-      並び替えて名言を作れ
-    `,
-    answers: [
-      "ほんのうに、かんどうを",
-      "本能に、感動を"
-    ]
-  },
+19:{
+    image:[],
+    text:"にほかをうの、どんにか\n\n並び替えて名言を作れ",
+    answers:["ほんのうに、かんどうを","本能に、感動を"]
+},
 
-  20: {
-    images: [],
-    text: `
-      タテ－たすく = 203<br>
-      タテ×たすく = 804204<br>
-      たすく＋しおり = 1806<br><br>
-      しおり = ？？？
-    `,
-    answers: ["1005"]
-  }
+20:{
+    image:[],
+    text:"タテ－たすく = 203\nタテ×たすく = 804204\nたすく＋しおり = 1806\n\nしおり = ？？？",
+    answers:["1005"]
+}
 
 };
 
 
-/* =========================================================
-   状態
-========================================================= */
+/* =========================
+   ランダム問題用
+========================= */
 
 let randomOrder = [];
 let randomPosition = 0;
 
 
-/* =========================================================
-   画面表示
-========================================================= */
+/* =========================
+   共通
+========================= */
 
-function render(content) {
-
-  document.getElementById("app").innerHTML = `
-    <div class="card">
-      ${content}
-    </div>
-  `;
-
+function render(content){
+    document.getElementById("app").innerHTML = content;
 }
 
 
-/* =========================================================
+function createRandomOrder(){
+
+    const numbers = [];
+
+    for(let i=4;i<=15;i++){
+        numbers.push(i);
+    }
+
+    for(let i=numbers.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [numbers[i],numbers[j]]=[numbers[j],numbers[i]];
+    }
+
+    randomOrder=numbers;
+
+    localStorage.setItem(
+        "randomOrder",
+        JSON.stringify(randomOrder)
+    );
+}
+
+
+function loadRandomOrder(){
+
+    const saved=localStorage.getItem("randomOrder");
+
+    if(saved){
+        randomOrder=JSON.parse(saved);
+    }else{
+        createRandomOrder();
+    }
+}
+
+
+/* =========================
    スタート画面
-========================================================= */
+========================= */
 
-function showStart() {
+function showStart(){
 
-  render(`
+    render(`
 
-    <div class="start-screen">
+        <div class="start-screen">
 
-      <div class="start-small">
-        HAPPY BIRTHDAY
-      </div>
+            <div class="start-small">
+                HAPPY BIRTHDAY
+            </div>
 
-      <div class="start-to">
-        しおりちゃんへ
-      </div>
+            <div class="start-to">
+                しおりちゃんへ
+            </div>
 
-      <div class="start-title">
-        20歳の誕生日
-      </div>
+            <div class="start-title">
+                20歳の誕生日
+            </div>
 
-      <div class="start-message">
+            <div class="start-message">
+                20個の謎を準備しました！<br><br>
 
-        20個の謎を準備しました！
+                グダグダかもだけど！<br>
+                楽しんでくれたら最高だせ！<br><br>
 
-        <br><br>
+                世界！
+            </div>
 
-        グダグダかもだけど！<br>
-        楽しんでくれたら最高だせ！
+            <button
+                class="start-button"
+                onclick="startFromBeginning()">
+                START
+            </button>
 
-        <div class="last">
-          世界！
         </div>
 
-      </div>
-
-      <button
-        class="start-button"
-        onclick="startFromBeginning()"
-      >
-        START
-      </button>
-
-    </div>
-
-  `);
-
+    `);
 }
 
 
-/* =========================================================
-   START
-   ★ 必ずQ1から始める
-========================================================= */
+/* =========================
+   最初から開始
+========================= */
 
-function startFromBeginning() {
+function startFromBeginning(){
 
-  /*
-    全クリア状態を消す
-  */
+    for(let i=1;i<=20;i++){
+        localStorage.removeItem(
+            "clear"+String(i).padStart(2,"0")
+        );
+    }
 
-  for (let i = 1; i <= 20; i++) {
+    localStorage.removeItem("randomOrder");
 
-    localStorage.removeItem(
-      "clear" + String(i).padStart(2, "0")
-    );
-
-  }
-
-
-  /*
-    ランダム順も新しくする
-  */
-
-  randomPosition = 0;
-
-  createRandomOrder();
-
-
-  /*
-    ★ 絶対にQ1
-  */
-
-  showQuestion(1);
-
-}
-
-
-/* =========================================================
-   ランダム順作成
-========================================================= */
-
-function createRandomOrder() {
-
-  randomOrder = [
-    4, 5, 6, 7, 8, 9,
-    10, 11, 12, 13, 14, 15
-  ];
-
-
-  for (
-    let i = randomOrder.length - 1;
-    i > 0;
-    i--
-  ) {
-
-    const j =
-      Math.floor(Math.random() * (i + 1));
-
-    [
-      randomOrder[i],
-      randomOrder[j]
-    ] = [
-      randomOrder[j],
-      randomOrder[i]
-    ];
-
-  }
-
-
-  localStorage.setItem(
-    "randomOrder",
-    JSON.stringify(randomOrder)
-  );
-
-}
-
-
-/* =========================================================
-   Q1〜Q3 / Q16〜Q20
-========================================================= */
-
-function showQuestion(number) {
-
-  const q = questions[number];
-
-  let images = "";
-
-  q.images.forEach(src => {
-
-    images += `
-      <img
-        src="${src}"
-        class="question-image"
-      >
-    `;
-
-  });
-
-
-  render(`
-
-    <div class="question-number">
-      Q${number}
-    </div>
-
-    ${images}
-
-    <div class="question-text">
-      ${q.text}
-    </div>
-
-    <input
-      id="answer"
-      class="answer-input"
-      type="text"
-      autocomplete="off"
-      placeholder="答えを入力"
-    >
-
-    <button
-      class="answer-button"
-      onclick="checkFixedAnswer(${number})"
-    >
-      回答する
-    </button>
-
-    <div id="result"></div>
-
-  `);
-
-}
-
-
-/* =========================================================
-   固定問題回答
-========================================================= */
-
-function checkFixedAnswer(number) {
-
-  const input =
-    document.getElementById("answer");
-
-  const answer =
-    input.value.trim();
-
-  const q =
-    questions[number];
-
-  const correct =
-    q.answers.some(
-      a =>
-        a.toLowerCase() ===
-        answer.toLowerCase()
-    );
-
-
-  const result =
-    document.getElementById("result");
-
-
-  if (!correct) {
-
-    result.innerHTML = `
-
-      <div class="result wrong">
-        不正解！
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  localStorage.setItem(
-    "clear" +
-    String(number).padStart(2, "0"),
-    "true"
-  );
-
-
-  result.innerHTML = `
-
-    <div class="result correct">
-      正解！
-    </div>
-
-    <button
-      class="next-button"
-      onclick="nextFixed(${number})"
-    >
-      NEXT
-    </button>
-
-  `;
-
-}
-
-
-/* =========================================================
-   固定問題NEXT
-========================================================= */
-
-function nextFixed(number) {
-
-  if (number === 1) {
-
-    showQuestion(2);
-    return;
-
-  }
-
-  if (number === 2) {
-
-    showQuestion(3);
-    return;
-
-  }
-
-  if (number === 3) {
-
-    randomPosition = 0;
-
-    showRandomQuestion();
-    return;
-
-  }
-
-  if (number === 16) {
-
-    showHotel();
-    return;
-
-  }
-
-  if (number === 17) {
-
-    showQuestion(18);
-    return;
-
-  }
-
-  if (number === 18) {
-
-    showQuestion(19);
-    return;
-
-  }
-
-  if (number === 19) {
-
-    showQuestion(20);
-    return;
-
-  }
-
-  if (number === 20) {
-
-    showClear();
-    return;
-
-  }
-
-}
-
-
-/* =========================================================
-   ランダム問題
-========================================================= */
-
-function showRandomQuestion() {
-
-  const saved =
-    localStorage.getItem("randomOrder");
-
-
-  if (saved) {
-
-    randomOrder =
-      JSON.parse(saved);
-
-  } else {
+    randomPosition=0;
 
     createRandomOrder();
 
-  }
+    showQuestion(1);
+}
 
 
-  const actualNumber =
-    randomOrder[randomPosition];
+/* =========================
+   戻るボタン
+========================= */
+
+function backFromFixed(number){
+
+    if(number===2){
+        showQuestion(1);
+    }
+
+    else if(number===3){
+        showQuestion(2);
+    }
+
+    else if(number===16){
+        randomPosition=11;
+        showRandomQuestion();
+    }
+
+    else if(number===17){
+        showHotel();
+    }
+
+    else if(number===18){
+        showQuestion(17);
+    }
+
+    else if(number===19){
+        showQuestion(18);
+    }
+
+    else if(number===20){
+        showQuestion(19);
+    }
+}
 
 
-  const displayedNumber =
-    randomPosition + 4;
+function backFromRandom(){
+
+    if(randomPosition===0){
+
+        showQuestion(3);
+
+    }else{
+
+        randomPosition--;
+
+        showRandomQuestion();
+
+    }
+}
 
 
-  const q =
-    questions[actualNumber];
+function backFromHotel(){
+
+    showQuestion(16);
+
+}
 
 
-  let images = "";
+function backFromClear(){
 
-  q.images.forEach(src => {
+    showQuestion(20);
 
-    images += `
-      <img
-        src="${src}"
-        class="question-image"
-      >
+}
+
+
+/* =========================
+   戻るボタンHTML
+========================= */
+
+function getFixedBackButton(number){
+
+    if(number===1){
+        return "";
+    }
+
+    return `
+        <button
+            class="back-button"
+            onclick="backFromFixed(${number})">
+            ← 戻る
+        </button>
     `;
-
-  });
-
-
-  render(`
-
-    <div class="question-number">
-      Q${displayedNumber}
-    </div>
-
-    ${images}
-
-    <div class="question-text">
-      ${q.text}
-    </div>
-
-    <input
-      id="randomAnswer"
-      class="answer-input"
-      type="text"
-      autocomplete="off"
-      placeholder="答えを入力"
-    >
-
-    <button
-      class="answer-button"
-      onclick="checkRandomAnswer()"
-    >
-      回答する
-    </button>
-
-    <div id="randomResult"></div>
-
-  `);
-
 }
 
 
-/* =========================================================
-   ランダム問題回答
-========================================================= */
+function getRandomBackButton(){
 
-function checkRandomAnswer() {
-
-  const input =
-    document.getElementById("randomAnswer");
-
-  const answer =
-    input.value.trim();
-
-
-  const actualNumber =
-    randomOrder[randomPosition];
-
-
-  const q =
-    questions[actualNumber];
-
-
-  const correct =
-    q.answers.some(
-      a =>
-        a.toLowerCase() ===
-        answer.toLowerCase()
-    );
-
-
-  const result =
-    document.getElementById("randomResult");
-
-
-  /*
-    不正解
-    ↓
-    NEXTは絶対に表示しない
-  */
-
-  if (!correct) {
-
-    result.innerHTML = `
-
-      <div class="result wrong">
-        不正解！
-      </div>
-
+    return `
+        <button
+            class="back-button"
+            onclick="backFromRandom()">
+            ← 戻る
+        </button>
     `;
-
-    return;
-
-  }
+}
 
 
-  /*
-    正解
-  */
+/* =========================
+   固定問題表示
+========================= */
 
-  localStorage.setItem(
-    "clear" +
-    String(actualNumber).padStart(2, "0"),
-    "true"
-  );
+function showQuestion(number){
+
+    const q=questions[number];
+
+    let images="";
+
+    q.image.forEach(src=>{
+        images+=`
+            <img
+                class="question-image"
+                src="${src}"
+                alt="">
+        `;
+    });
 
 
-  result.innerHTML = `
+    const key=
+        "clear"+String(number).padStart(2,"0");
 
-    <div class="result correct">
-      正解！
-    </div>
+    const solved=
+        !!localStorage.getItem(key);
 
-    <button
-      class="next-button"
-      onclick="nextRandom()"
-    >
-      NEXT
-    </button>
 
-  `;
+    let answerArea="";
+
+    if(!solved){
+
+        answerArea=`
+
+            <input
+                id="answerInput"
+                class="answer-input"
+                type="text"
+                placeholder="答えを入力">
+
+            <button
+                class="answer-button"
+                onclick="checkFixedAnswer(${number})">
+                回答する
+            </button>
+
+            <div
+                id="result"
+                class="result">
+            </div>
+
+        `;
+
+    }else{
+
+        answerArea=`
+
+            <div class="result">
+
+                <div class="correct">
+                    正解！
+                </div>
+
+                <button
+                    class="next-button"
+                    onclick="nextFixed(${number})">
+                    NEXT
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    render(`
+
+        <div>
+
+            <div class="question-number">
+                第${number}問
+            </div>
+
+            ${images}
+
+            <div class="question-text">
+                ${q.text}
+            </div>
+
+            ${answerArea}
+
+            ${getFixedBackButton(number)}
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   固定問題の回答
+========================= */
+
+function checkFixedAnswer(number){
+
+    const input=
+        document.getElementById("answerInput");
+
+    if(!input) return;
+
+    const answer=
+        input.value.trim();
+
+    const q=
+        questions[number];
+
+    const correct=
+        q.answers.some(
+            a=>a.toLowerCase()===answer.toLowerCase()
+        );
+
+
+    const result=
+        document.getElementById("result");
+
+
+    if(correct){
+
+        localStorage.setItem(
+            "clear"+String(number).padStart(2,"0"),
+            "true"
+        );
+
+        result.innerHTML=`
+
+            <div class="correct">
+                正解！
+            </div>
+
+            <button
+                class="next-button"
+                onclick="nextFixed(${number})">
+                NEXT
+            </button>
+
+        `;
+
+    }else{
+
+        result.innerHTML=`
+
+            <div class="wrong">
+                不正解！
+            </div>
+
+        `;
+
+    }
 
 }
 
 
-/* =========================================================
-   ランダムNEXT
-========================================================= */
+/* =========================
+   固定問題 NEXT
+========================= */
 
-function nextRandom() {
+function nextFixed(number){
 
-  /*
-    現在の問題が正解済みか確認。
-  */
+    if(number===1){
 
-  const actualNumber =
-    randomOrder[randomPosition];
+        showQuestion(2);
 
+    }
 
-  const key =
-    "clear" +
-    String(actualNumber).padStart(2, "0");
+    else if(number===2){
 
+        showQuestion(3);
 
-  if (!localStorage.getItem(key)) {
+    }
 
-    return;
+    else if(number===3){
 
-  }
+        randomPosition=0;
 
+        showRandomQuestion();
 
-  randomPosition++;
+    }
 
+    else if(number===16){
 
-  /*
-    まだQ4〜Q15が残っている
-  */
+        showHotel();
 
-  if (randomPosition < 12) {
+    }
 
-    showRandomQuestion();
-    return;
+    else if(number===17){
 
-  }
+        showQuestion(18);
 
+    }
 
-  /*
-    ランダム部分終了
-    ↓
-    Q16
-  */
+    else if(number===18){
 
-  showQuestion(16);
+        showQuestion(19);
 
-}
+    }
 
+    else if(number===19){
 
-/* =========================================================
-   ホテル
-========================================================= */
+        showQuestion(20);
 
-function showHotel() {
+    }
 
-  render(`
+    else if(number===20){
 
-    <div class="hotel">
+        showClear();
 
-      <div class="hotel-title">
-        おつかれさま！
-      </div>
-
-      <div class="hotel-text">
-
-        街ブラ謎解きはここまで！<br><br>
-
-        椿森ホテルを予約してあります。<br><br>
-
-        ここからは少し休憩して、<br>
-        楽しい時間とご飯をゆっくり楽しもう！<br><br>
-
-        まだまだ20歳の誕生日は終わりません。
-
-      </div>
-
-      <button
-        class="next-button"
-        onclick="showQuestion(17)"
-      >
-        NEXT
-      </button>
-
-    </div>
-
-  `);
+    }
 
 }
 
 
-/* =========================================================
+/* =========================
+   ランダム問題表示
+========================= */
+
+function showRandomQuestion(){
+
+    loadRandomOrder();
+
+    const actualNumber=
+        randomOrder[randomPosition];
+
+    const displayNumber=
+        randomPosition+4;
+
+    const q=
+        questions[actualNumber];
+
+
+    let images="";
+
+    q.image.forEach(src=>{
+
+        images+=`
+
+            <img
+                class="question-image"
+                src="${src}"
+                alt="">
+
+        `;
+
+    });
+
+
+    const key=
+        "clear"+String(actualNumber).padStart(2,"0");
+
+    const solved=
+        !!localStorage.getItem(key);
+
+
+    let answerArea="";
+
+
+    if(!solved){
+
+        answerArea=`
+
+            <input
+                id="randomAnswerInput"
+                class="answer-input"
+                type="text"
+                placeholder="答えを入力">
+
+            <button
+                class="answer-button"
+                onclick="checkRandomAnswer()">
+                回答する
+            </button>
+
+            <div
+                id="randomResult"
+                class="result">
+            </div>
+
+        `;
+
+    }else{
+
+        answerArea=`
+
+            <div
+                id="randomResult"
+                class="result">
+
+                <div class="correct">
+                    正解！
+                </div>
+
+                <button
+                    class="next-button"
+                    onclick="nextRandom()">
+                    NEXT
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    render(`
+
+        <div>
+
+            <div class="question-number">
+                第${displayNumber}問
+            </div>
+
+            ${images}
+
+            <div class="question-text">
+                ${q.text}
+            </div>
+
+            ${answerArea}
+
+            ${getRandomBackButton()}
+
+        </div>
+
+    `);
+
+}
+
+
+/* =========================
+   ランダム問題 回答
+========================= */
+
+function checkRandomAnswer(){
+
+    const input=
+        document.getElementById("randomAnswerInput");
+
+    if(!input) return;
+
+
+    const answer=
+        input.value.trim();
+
+    const actualNumber=
+        randomOrder[randomPosition];
+
+    const q=
+        questions[actualNumber];
+
+
+    const correct=
+        q.answers.some(
+            a=>a.toLowerCase()===answer.toLowerCase()
+        );
+
+
+    const result=
+        document.getElementById("randomResult");
+
+
+    if(correct){
+
+        localStorage.setItem(
+            "clear"+String(actualNumber).padStart(2,"0"),
+            "true"
+        );
+
+
+        result.innerHTML=`
+
+            <div class="correct">
+                正解！
+            </div>
+
+            <button
+                class="next-button"
+                onclick="nextRandom()">
+                NEXT
+            </button>
+
+        `;
+
+    }else{
+
+        result.innerHTML=`
+
+            <div class="wrong">
+                不正解！
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   ランダム問題 NEXT
+========================= */
+
+function nextRandom(){
+
+    const actualNumber=
+        randomOrder[randomPosition];
+
+
+    const key=
+        "clear"+String(actualNumber).padStart(2,"0");
+
+
+    if(!localStorage.getItem(key)){
+        return;
+    }
+
+
+    randomPosition++;
+
+
+    if(randomPosition<12){
+
+        showRandomQuestion();
+
+    }else{
+
+        showQuestion(16);
+
+    }
+
+}
+
+
+/* =========================
+   ホテルページ
+========================= */
+
+function showHotel(){
+
+    render(`
+
+        <div class="hotel">
+
+            <div class="hotel-title">
+                HOTEL
+            </div>
+
+            <div class="hotel-text">
+                ここからホテルへ向かおう！
+
+                次の謎はホテルで待っています。
+            </div>
+
+            <button
+                class="next-button"
+                onclick="showQuestion(17)">
+                NEXT
+            </button>
+
+            <button
+                class="back-button"
+                onclick="backFromHotel()">
+                ← 戻る
+            </button>
+
+        </div>
+
+    `);
+
+}
+
+
+/* =========================
    CLEAR
-========================================================= */
+========================= */
 
-function showClear() {
+function showClear(){
 
-  render(`
+    render(`
 
-    <div class="clear-title">
+        <div>
 
-      20個の謎<br>
-      撃破！<br><br>
+            <div class="clear-title">
+                CLEAR!
+            </div>
 
-      20歳！<br><br>
+            <div class="clear-message">
+                20個の謎、すべてクリア！
 
-      HAPPY BIRTHDAY！
+                しおりちゃん
+                20歳の誕生日おめでとう！
 
-    </div>
+                世界より
+            </div>
 
-    <div class="clear-message">
+            <button
+                class="back-button"
+                onclick="backFromClear()">
+                ← 戻る
+            </button>
 
-      誕生日おめでとう！<br><br>
+            <button
+                class="reset-button"
+                onclick="resetGame()">
+                最初からやり直す
+            </button>
 
-      ここまでの20個の謎、<br>
-      すべてクリア！<br><br>
+        </div>
 
-      20歳の一年が、<br>
-      たくさんの笑顔と<br>
-      たくさんの思い出で<br>
-      いっぱいになりますように。<br><br>
-
-      これからもよろしくね。
-
-    </div>
-
-    <button
-      class="reset-button"
-      onclick="resetGame()"
-    >
-      最初からやり直す
-    </button>
-
-  `);
+    `);
 
 }
 
 
-/* =========================================================
-   最初からやり直す
-========================================================= */
+/* =========================
+   リセット
+========================= */
 
-function resetGame() {
+function resetGame(){
 
-  for (let i = 1; i <= 20; i++) {
+    for(let i=1;i<=20;i++){
 
-    localStorage.removeItem(
-      "clear" + String(i).padStart(2, "0")
-    );
+        localStorage.removeItem(
+            "clear"+String(i).padStart(2,"0")
+        );
 
-  }
+    }
 
-  localStorage.removeItem("randomOrder");
+    localStorage.removeItem("randomOrder");
 
-  randomOrder = [];
-  randomPosition = 0;
+    randomPosition=0;
+    randomOrder=[];
 
-
-  /*
-    ★ Q1ではなくスタート画面
-  */
-
-  showStart();
+    showStart();
 
 }
 
 
-/* =========================================================
-   超重要
-   start.htmlを開いた瞬間は必ずスタート画面
-========================================================= */
+/* =========================
+   初期画面
+========================= */
 
 showStart();
 
