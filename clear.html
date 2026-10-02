@@ -45,28 +45,28 @@
       margin-top: 30px;
     }
 
-    .nav a {
+    .nav a,
+    .reset-button {
       display: block;
+      box-sizing: border-box;
       color: white;
       text-decoration: none;
       border: 1px solid white;
       padding: 12px 20px;
       border-radius: 5px;
-      max-width: 250px;
+      width: 250px;
       margin: 0 auto;
+      font-size: 16px;
+      background: #111;
+      cursor: pointer;
     }
 
     .reset-button {
       margin-top: 25px;
-      padding: 12px 25px;
-      font-size: 16px;
-      color: white;
-      background: #111;
-      border: 1px solid #777;
-      border-radius: 5px;
-      cursor: pointer;
+      border-color: #777;
     }
 
+    .nav a:hover,
     .reset-button:hover {
       background: white;
       color: #111;
@@ -102,9 +102,9 @@
     <a href="question20.html">PREV</a>
   </div>
 
-  <button onclick="resetGame()" class="reset-button">
+  <a href="start.html" class="reset-button" onclick="resetGame()">
     最初からやり直す
-  </button>
+  </a>
 
 </div>
 
@@ -116,7 +116,7 @@
       );
     }
 
-    location.href = "start.html";
+    localStorage.removeItem("randomOrder");
   }
 </script>
 
